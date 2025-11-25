@@ -118,7 +118,7 @@ public class Tabuleiro {
         int linhas = totalDeCasas / casasPorLinha; //4 linhas, cada uma contendo 10 casas.
 
         sb.append("\n============================================================\n");
-        sb.append(String.format("%35s%n", "🏁 TABULEIRO"));
+        sb.append(String.format("%35s%n", " TABULEIRO"));
         sb.append("============================================================\n");
 
         // Mostra a casa 0 (início do jogo)

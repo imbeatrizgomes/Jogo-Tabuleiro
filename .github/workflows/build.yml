@@ -1,18 +1,33 @@
 name: Build
+
 on:
   push:
     branches:
       - master
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   sonarqube:
     name: SonarQube
     runs-on: windows-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Compile Java (Eclipse project)
+        run: |
+          mkdir -p bin
+          javac -d bin $(Get-ChildItem -Recurse -Filter *.java | ForEach-Object { $_.FullName })
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
